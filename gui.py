@@ -1,8 +1,8 @@
 
 import sys, os
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QDialog, QApplication, QFileDialog, QMainWindow
-from PyQt5.uic import loadUi
+from PyQt6 import QtWidgets
+from PyQt6.QtWidgets import QDialog, QApplication, QFileDialog, QMainWindow
+from PyQt6.uic import loadUi
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -27,4 +27,4 @@ if __name__ == "__main__":
     app=QApplication(sys.argv)
     mainwindow=MainWindow()
     mainwindow.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
