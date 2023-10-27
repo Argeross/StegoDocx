@@ -66,5 +66,5 @@ def decode_from_bg(stego_file):
 
 
 if __name__ == "__main__":
-    #encode_to_bg("test.docx", "Testujemy")
+    encode_to_bg("test.docx", "Testujemy")
     print(decode_from_bg("test_stego.docx"))

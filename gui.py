@@ -1,4 +1,4 @@
-
+import colorBackground
 import sys, os
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import QDialog, QApplication, QFileDialog, QMainWindow
@@ -19,9 +19,13 @@ class MainWindow(QMainWindow):
     def encode(self): # encoding supplied text
         userText = self.userInput.toPlainText()
         print(userText)
+        if self.selectMethodEncode.currentText() == "Background Color":
+            colorBackground.encode_to_bg('test.docx', userText)
 
     def decode(self): # decoding uploaded textfile
         print(self.filename.text())
+        if self.selectMethodDecode.currentText() == "Background Color":
+            self.decodedMessage.setText(colorBackground.decode_from_bg(self.filename.text()))
 
 if __name__ == "__main__":
     app=QApplication(sys.argv)
