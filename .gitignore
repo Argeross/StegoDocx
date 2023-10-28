@@ -1,3 +1,4 @@
 .vscode/
 coverage/
-test_stego.docx
+*_stego.docx
+__pycache__/

@@ -1,4 +1,5 @@
 import colorBackground
+import spacing
 import sys, os
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import QDialog, QApplication, QFileDialog, QMainWindow
@@ -20,12 +21,23 @@ class MainWindow(QMainWindow):
         userText = self.userInput.toPlainText()
         print(userText)
         if self.selectMethodEncode.currentText() == "Background Color":
-            colorBackground.encode_to_bg('test.docx', userText)
+            path = colorBackground.encode_to_bg('test.docx', userText)
+        elif self.selectMethodEncode.currentText() == "Letter Color":
+            pass
+        elif self.selectMethodEncode.currentText() == "Spacing":
+            path = spacing.encode_in_spaces('template.docx', userText)
+            
+
+        self.fileSavedAtLabel.setText(f'File saved at {path}')
 
     def decode(self): # decoding uploaded textfile
         print(self.filename.text())
         if self.selectMethodDecode.currentText() == "Background Color":
             self.decodedMessage.setText(colorBackground.decode_from_bg(self.filename.text()))
+        elif self.selectMethodEncode.currentText() == "Letter Color":
+            pass
+        elif self.selectMethodEncode.currentText() == "Spacing":
+            self.decodedMessage.setText(spacing.decode_from_spaces(self.filename.text()))
 
 if __name__ == "__main__":
     app=QApplication(sys.argv)
