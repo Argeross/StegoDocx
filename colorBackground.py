@@ -57,7 +57,10 @@ def decode_from_bg(stego_file):
                 stego_content = run.text
                 break
     
-    stego_text, stego_hash = stego_content.split(":")
+    try:
+        stego_text, stego_hash = stego_content.split(":")
+    except:
+        return "Couldn't decode the message - error occured"
 
     if not integrity_check(stego_hash, stego_text):
         return "The checksum of a stegotext is invalid, probably the content was modified"
