@@ -5,6 +5,7 @@ from docx.shared import RGBColor
 
 
 
+
 def get_checksum(text): # SHA-256 * len(txt)
     checksum = hashlib.sha256()
     checksum.update(text.encode())
@@ -22,7 +23,7 @@ def encode_in_spaces(template_file, secret_txt):
     
     stego_txt = secret_txt + ":" + checksum
     txt_bin = ''.join(format(ord(c), '08b') for c in stego_txt)
-    print(txt_bin)
+    # print(txt_bin)
 
     template_txt = [*template_txt]
     # print(template_txt)
@@ -64,7 +65,7 @@ def encode_in_spaces(template_file, secret_txt):
     stego_full_path = os.path.join(dir, stego_filename)
     stego_doc.save(stego_full_path)
     
-    print(stego_full_path)
+    # print(stego_full_path)
     return stego_full_path
 
 
@@ -75,7 +76,7 @@ def decode_from_spaces(stego_file):
     stego_doc = Document(stego_file)
 
     stego_txt = "\n".join([paragraph.text for paragraph in stego_doc.paragraphs])
-    print(stego_txt)
+    # print(stego_txt)
     decoded_bin = ''
     for i in range(len(stego_txt)):
         if stego_txt[i] == ' ':
@@ -85,14 +86,14 @@ def decode_from_spaces(stego_file):
                 pass
             else:
                 decoded_bin += '1'
-    print(decoded_bin)
+    # print(decoded_bin)
     decoded_text = ''
     for i in range(0, len(decoded_bin), 8):
         byte = decoded_bin[i:i + 8]
         decoded_text += chr(int(byte, 2))
     
 
-    print(decoded_text)
+    # print(decoded_text)
     try:
         message, stego_hash = decoded_text.split(":")
     except:
