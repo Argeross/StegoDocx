@@ -26,7 +26,6 @@ def encode_to_color(template_file, secret_txt):
     # Get content of template file
     template_doc = Document(template_file)
     template_txt = "\n".join([paragraph.text for paragraph in template_doc.paragraphs])
-    print(template_txt)
     
     # Calculate checksum
     checksum = get_checksum(secret_txt)
@@ -48,7 +47,6 @@ def encode_to_color(template_file, secret_txt):
         for run in p.runs:
             for idx, ltr in enumerate(run.text):
                 if i >= len(stego_txt):
-
                     rest = paragraph.add_run()
                     rest.text = run.text[idx:]
                     rest.font.color.rgb = END # Color for the end of the message
@@ -78,7 +76,7 @@ def encode_to_color(template_file, secret_txt):
     stego_full_path = os.path.join(dir, stego_filename)
     stego_doc.save(stego_full_path)
     
-    print(stego_full_path)
+    #print(stego_full_path)
     return stego_full_path
 
 def integrity_check(stego_hash, stego_text):
@@ -112,5 +110,5 @@ def decode_from_color(stego_file):
 
 
 if __name__ == "__main__":
-    encode_to_color("template.docx", "Testujemy 67&!?#")
+    encode_to_color("template.docx", "Testujemy 67&!?# <>")
     print(decode_from_color("template_stego.docx"))

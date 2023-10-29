@@ -1,9 +1,7 @@
 import os
 import hashlib
 from docx import Document
-from docx.shared import RGBColor
-
-BG_COLOR = RGBColor(255, 255, 255)
+from docx.shared import RGBColor, Pt
 
 def get_checksum(text): # SHA-256 * len(txt)
     checksum = hashlib.sha256()
@@ -12,7 +10,7 @@ def get_checksum(text): # SHA-256 * len(txt)
     return checksum
 
 
-def encode_to_bg(template_file, secret_txt):
+def encode_to_bg(template_file, secret_txt, bg_color = RGBColor(255, 255, 255)):
     # Get content of template file
     template_doc = Document(template_file)
     template_txt = "\n".join([paragraph.text for paragraph in template_doc.paragraphs])
@@ -26,7 +24,8 @@ def encode_to_bg(template_file, secret_txt):
     stego_doc = Document()
     stego_doc.add_paragraph(template_txt)
     stego_doc.add_paragraph(stego_txt)
-    stego_doc.paragraphs[-1].runs[0].font.color.rgb = BG_COLOR
+    stego_doc.paragraphs[-1].runs[0].font.color.rgb = bg_color
+    stego_doc.paragraphs[-1].runs[0].font.size = Pt(1)
 
     # Disable spell-checking in Word
     DOCX = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
@@ -41,19 +40,19 @@ def encode_to_bg(template_file, secret_txt):
     stego_full_path = os.path.join(dir, stego_filename)
     stego_doc.save(stego_full_path)
     
-    print(stego_full_path)
+    #print(stego_full_path)
     return stego_full_path
 
 
 def integrity_check(stego_hash, stego_text):
     return stego_hash == get_checksum(stego_text)
 
-def decode_from_bg(stego_file):
+def decode_from_bg(stego_file, bg_color = RGBColor(255, 255, 255)):
     stego_doc = Document(stego_file)
 
     for paragraph in stego_doc.paragraphs:
         for run in paragraph.runs:
-            if run.font.color.rgb == BG_COLOR:
+            if run.font.color.rgb == bg_color:
                 stego_content = run.text
                 break
     

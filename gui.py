@@ -1,4 +1,5 @@
 import colorBackground
+import colorText
 import spacing
 import sys, os
 from PyQt6 import QtWidgets
@@ -30,7 +31,7 @@ class MainWindow(QMainWindow):
         if self.selectMethodEncode.currentText() == "Background Color":
             path = colorBackground.encode_to_bg(templateFile, userText)
         elif self.selectMethodEncode.currentText() == "Letter Color":
-            pass
+            path = colorText.encode_to_color(templateFile, userText)
         elif self.selectMethodEncode.currentText() == "Spacing":
             path = spacing.encode_in_spaces(templateFile, userText)
             
@@ -42,7 +43,7 @@ class MainWindow(QMainWindow):
         if self.selectMethodDecode.currentText() == "Background Color":
             self.decodedMessage.setText(colorBackground.decode_from_bg(self.filename.text()))
         elif self.selectMethodEncode.currentText() == "Letter Color":
-            pass
+            self.decodedMessage.setText(colorText.decode_from_color(self.filename.text()))
         elif self.selectMethodEncode.currentText() == "Spacing":
             self.decodedMessage.setText(spacing.decode_from_spaces(self.filename.text()))
 
