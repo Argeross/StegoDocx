@@ -5,6 +5,7 @@ import sys, os
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import QDialog, QApplication, QFileDialog, QMainWindow
 from PyQt6.uic import loadUi
+from docx.shared import RGBColor
 
 
 class MainWindow(QMainWindow):
@@ -29,7 +30,8 @@ class MainWindow(QMainWindow):
         print(userText)
         templateFile = self.filename_template.text()
         if self.selectMethodEncode.currentText() == "Background Color":
-            path = colorBackground.encode_to_bg(templateFile, userText)
+            print(type(self.Rvalue.value()), type(self.Gvalue.value()), type(self.Bvalue.value()))
+            path = colorBackground.encode_to_bg(templateFile, userText, RGBColor(self.Rvalue.value(), self.Gvalue.value(), self.Bvalue.value()))
         elif self.selectMethodEncode.currentText() == "Letter Color":
             path = colorText.encode_to_color(templateFile, userText)
         elif self.selectMethodEncode.currentText() == "Spacing":

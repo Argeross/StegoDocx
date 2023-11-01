@@ -10,7 +10,7 @@ def get_checksum(text): # SHA-256 * len(txt)
     return checksum
 
 
-def encode_to_bg(template_file, secret_txt, bg_color = RGBColor(255, 255, 255)):
+def encode_to_bg(template_file, secret_txt, bg_color):
     # Get content of template file
     template_doc = Document(template_file)
     template_txt = "\n".join([paragraph.text for paragraph in template_doc.paragraphs])
