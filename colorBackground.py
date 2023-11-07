@@ -32,6 +32,7 @@ def encode_to_bg(template_file, secret_txt, bg_color):
     element = stego_doc.settings.element.find(DOCX + 'proofState')
     element.attrib[DOCX + 'grammar'] = 'dirty'
     element.attrib[DOCX + 'spelling'] = 'dirty'
+    stego_doc.core_properties.identifier = str(bg_color)
     
     # Saving file to the same directory as a template file
     full_path, ext = os.path.splitext(template_file)
@@ -47,9 +48,10 @@ def encode_to_bg(template_file, secret_txt, bg_color):
 def integrity_check(stego_hash, stego_text):
     return stego_hash == get_checksum(stego_text)
 
-def decode_from_bg(stego_file, bg_color = RGBColor(255, 255, 255)):
+def decode_from_bg(stego_file):
     stego_doc = Document(stego_file)
 
+    bg_color = RGBColor.from_string(stego_doc.core_properties.identifier)
     for paragraph in stego_doc.paragraphs:
         for run in paragraph.runs:
             if run.font.color.rgb == bg_color:
@@ -68,5 +70,5 @@ def decode_from_bg(stego_file, bg_color = RGBColor(255, 255, 255)):
 
 
 if __name__ == "__main__":
-    encode_to_bg("test.docx", "Testujemy")
+    encode_to_bg("test.docx", "Testujemy", RGBColor(0, 0, 0))
     print(decode_from_bg("test_stego.docx"))
