@@ -43,13 +43,19 @@ class MainWindow(QMainWindow):
         elif self.selectMethodEncode.currentText() == "Letter Color":
             try:
                 path = colorText.encode_to_color(templateFile, userText)
-                self.fileSavedAtLabel.setText(f'File saved at {path}')
+                if path == "Too short template file or too long message.":
+                    self.fileSavedAtLabel.setText(path)
+                else:                
+                    self.fileSavedAtLabel.setText(f'File saved at {path}')
             except:
                 self.fileSavedAtLabel.setText("No template file was selected. Please select template file.")
         elif self.selectMethodEncode.currentText() == "Spacing":
             try:
                 path = spacing.encode_in_spaces(templateFile, userText)
-                self.fileSavedAtLabel.setText(f'File saved at {path}')
+                if path == "Too short template file or too long message.":
+                    self.fileSavedAtLabel.setText(path)
+                else:
+                    self.fileSavedAtLabel.setText(f'File saved at {path}')
             except:
                 self.fileSavedAtLabel.setText("No template file was selected. Please select template file.")            
             
