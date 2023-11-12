@@ -16,9 +16,12 @@ class MainWindow(QMainWindow):
         self.encodeBtn.clicked.connect(self.encode)
         self.decodeBtn.clicked.connect(self.decode)
         self.browseBtn_template.clicked.connect(self.browsefilestemplate)
-        self.help_text.setText('''This is help
+        self.help_text.setText('''Methods:
+Background Color - changes a color of the secret text to white (default) or selected one (RGB selector). The secret text is then appended to the text of a input .docx file.
+                               
+Letter Color - encodes secret text as RGB values of the shades of a black color and changes accordingly the font color of letters in template file. The length of the text in a input .docx file has to be greater than the length of the secret text.
 
-        
+ 
 ''')
 
     def browsefiles(self): # browse files and set file path to 'self.filename' edit
