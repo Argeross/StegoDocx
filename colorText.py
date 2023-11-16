@@ -98,10 +98,12 @@ def decode_from_color(stego_file):
         if complete:
             break
     
-    try:
-        stego_text, stego_hash = stego_content.split(":")
-    except:
-        return "Couldn't decode the message - error occured"
+    # try:
+    print(stego_content)
+    stego_text, stego_hash = stego_content.split(":")
+    print(stego_text,stego_hash, 'x')
+    # except:
+        # return "Couldn't decode the message - error occured"
 
     if not integrity_check(stego_hash, stego_text):
         return "The checksum of a stegotext is invalid, probably the content was modified"

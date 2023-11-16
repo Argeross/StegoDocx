@@ -94,10 +94,10 @@ def decode_from_spaces(stego_file):
     
 
     # print(decoded_text)
-    try:
-        message, stego_hash = decoded_text.split(":")
-    except:
-        return "Couldn't decode the message - error occured"
+    # try:
+    message, stego_hash = decoded_text.split(":")
+    # except:
+        # return "Couldn't decode the message - error occured"
 
 
     if not integrity_check(stego_hash, message):
