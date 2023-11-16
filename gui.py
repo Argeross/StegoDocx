@@ -78,14 +78,14 @@ To decode a file, upload it via 'Browse' on the right side. Select a method with
                 self.decodedMessage.setText("No file to decode!")
             except ValueError:
                 self.decodedMessage.setText("Couldn't decode the message - error occured")
-        elif self.selectMethodEncode.currentText() == "Letter Color":
+        elif self.selectMethodDecode.currentText() == "Letter Color":
             try:
                 self.decodedMessage.setText(colorText.decode_from_color(self.filename.text()))
             except docx.opc.exceptions.PackageNotFoundError:
                 self.decodedMessage.setText("No file to decode!")     
             except ValueError:
                 self.decodedMessage.setText("Couldn't decode the message - error occured")                 
-        elif self.selectMethodEncode.currentText() == "Spacing":
+        elif self.selectMethodDecode.currentText() == "Spacing":
             try:
                 self.decodedMessage.setText(spacing.decode_from_spaces(self.filename.text()))
             except docx.opc.exceptions.PackageNotFoundError:
