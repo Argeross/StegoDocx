@@ -18,7 +18,7 @@ def encode_in_spaces(template_file, secret_txt):
     template_doc = Document(template_file)
     template_txt = "\n".join([paragraph.text for paragraph in template_doc.paragraphs]).strip()
     # print(template_txt)
-    # Calculate checksum
+    # Calculate checksum 
     checksum = get_checksum(secret_txt)
     
     stego_txt = secret_txt + ":" + checksum
@@ -28,7 +28,6 @@ def encode_in_spaces(template_file, secret_txt):
     template_txt = [*template_txt]
     # print(template_txt)
     if template_txt.count(' ') < len(txt_bin):
-        print("Too short template file or too long message.")
         return "Too short template file or too long message."
 
     encoded_txt = ""
@@ -74,7 +73,6 @@ def integrity_check(stego_hash, stego_text):
 
 def decode_from_spaces(stego_file):
     stego_doc = Document(stego_file)
-
     stego_txt = "\n".join([paragraph.text for paragraph in stego_doc.paragraphs])
     # print(stego_txt)
     decoded_bin = ''
@@ -93,12 +91,7 @@ def decode_from_spaces(stego_file):
         decoded_text += chr(int(byte, 2))
     
 
-    # print(decoded_text)
-    # try:
     message, stego_hash = decoded_text.split(":")
-    # except:
-        # return "Couldn't decode the message - error occured"
-
 
     if not integrity_check(stego_hash, message):
         return "The checksum of a stegotext is invalid, probably the content was modified"

@@ -31,11 +31,11 @@ To decode a file, upload it via 'Browse' on the right side. Select a method with
 ''')
 
     def browsefiles(self): # browse files and set file path to 'self.filename' edit
-        fname=QFileDialog.getOpenFileName(self, 'Open file', os.getcwd(), 'Text files (*.txt, *.doc, *.docx)')
+        fname=QFileDialog.getOpenFileName(self, 'Open file', os.getcwd(), 'Word files (*.doc, *.docx)')
         self.filename.setText(fname[0])
 
     def browsefilestemplate(self): # browse files and set file path to 'self.filename' edit
-        fname=QFileDialog.getOpenFileName(self, 'Open file', os.getcwd(), 'Text files (*.txt, *.doc, *.docx)')
+        fname=QFileDialog.getOpenFileName(self, 'Open file', os.getcwd(), 'Word files (*.doc, *.docx)')
         self.filename_template.setText(fname[0])
 
     def encode(self): # encoding supplied text
