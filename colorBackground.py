@@ -2,6 +2,8 @@ import os
 import hashlib
 from docx import Document
 from docx.shared import RGBColor, Pt
+from docx.oxml.shared import OxmlElement
+from docx.oxml.ns import qn
 
 def get_checksum(text): # SHA-256 * len(txt)
     checksum = hashlib.sha256()
@@ -33,6 +35,15 @@ def encode_to_bg(template_file, secret_txt, bg_color):
     element.attrib[DOCX + 'grammar'] = 'dirty'
     element.attrib[DOCX + 'spelling'] = 'dirty'
     stego_doc.core_properties.identifier = str(bg_color)
+    
+    # Change background color of doc
+    shd = OxmlElement('w:background')
+    shd.set(qn('w:color'), str(bg_color))
+    shd.set(qn('w:themeColor'), 'text1')
+    shd.set(qn('w:themeTint'), 'F2')
+    stego_doc.element.insert(0,shd)
+    shd1 = OxmlElement('w:displayBackgroundShape')
+    stego_doc.settings.element.insert(0,shd1)
     
     # Saving file to the same directory as a template file
     full_path, ext = os.path.splitext(template_file)
@@ -70,5 +81,5 @@ def decode_from_bg(stego_file):
 
 
 if __name__ == "__main__":
-    encode_to_bg("test.docx", "Testujemy", RGBColor(0, 0, 0))
+    encode_to_bg("test.docx", "Testujemy", RGBColor(233, 233, 233))
     print(decode_from_bg("test_stego.docx"))
