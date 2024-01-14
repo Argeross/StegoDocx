@@ -1,1 +1,1 @@
-# TextSteganograpy-Project
+# StegoDoc
